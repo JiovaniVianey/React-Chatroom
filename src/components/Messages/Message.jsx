@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 const Message = ({ message }) => {
   return (
     <div className="message">
-      <strong>{message.author}:</strong> {message.content}
+      <div className="message-author">{message.author}:</div>
+      <div className="message-content">{message.content}</div>
     </div>
   );
 };

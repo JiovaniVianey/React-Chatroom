@@ -1,0 +1,41 @@
+@use 'src/styles/variables';
+
+.messages {
+  padding: 2em;
+  // réserver de la place en bas pour le formulaire
+  margin-bottom: variables.$inputHeight;
+
+  overflow-y: auto;
+  // pour que l'overflow s'applique il faut définir une hauteur
+  height: calc(100% - variables.$inputHeight);
+
+  .message {
+    margin-bottom: 2rem;
+    // sert de référence pour le triangle du contenu
+    position: relative;
+
+    &::before {
+      content: '';
+      // triangle en CSS : https://css-tricks.com/snippets/css/css-triangle/
+      border-bottom: 20px solid variables.$backgroundMessage;
+      border-left: 25px solid transparent;
+      position: absolute;
+      top: 1em;
+      left: 1.5em;
+    }
+
+    .message-author {
+      padding-left: 1.2em;
+    }
+
+    .message-content {
+      padding: 1.2rem 1.3rem;
+      margin-top: 0.8rem;
+      border-radius: 1.6rem;
+      background-color: variables.$backgroundMessage;
+      color: variables.$mediumColor;
+      // pour prendre seulement la largeur nécessaire pour le contenu, pas 100%
+      display: inline-block;
+    }
+  }
+}

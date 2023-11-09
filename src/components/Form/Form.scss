@@ -1,0 +1,30 @@
+@use 'src/styles/variables';
+
+.form {
+  position: absolute;
+  bottom: 0;
+  // le composant s'étire au maximum sur les côtés par rapport à l'élément qui sert de
+  // référence (.Chat)
+  left: 0;
+  right: 0;
+
+  .form-input {
+    height: variables.$inputHeight;
+    border: none;
+    font-size: 1.2em;
+    padding: 1rem;
+    width: 100%;
+    // on réserve la place pour le bouton (le texte s'arrête avant le bord)
+    padding-right: variables.$inputHeight;
+  }
+
+  .form-submit {
+    width: variables.$inputHeight;
+    height: variables.$inputHeight;
+    background-color: transparent;
+    color: variables.$mediumColor;
+    border: none;
+    position: absolute;
+    right: 0;
+  }
+}

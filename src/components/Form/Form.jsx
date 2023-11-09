@@ -1,7 +1,9 @@
 // Form.js
 import React, { useState } from 'react';
+import { Send } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../../actions/chatActions';
+import './Form.scss';
 
 const Form = () => {
   const [message, setMessage] = useState('');
@@ -12,7 +14,7 @@ const Form = () => {
     if (message.trim() !== '') {
       dispatch(
         addMessage({
-          author: 'Super Chat',
+          author: 'Moi',
           content: message,
         })
       );
@@ -21,14 +23,17 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
+        className="form-input"
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Saisissez votre message..."
       />
-      <button type="submit">Envoyer</button>
+      <button type="submit" className="form-submit">
+        <Send size={40} />
+      </button>
     </form>
   );
 };
