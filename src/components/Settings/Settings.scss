@@ -1,0 +1,58 @@
+// Settings.scss
+@use 'src/styles/variables';
+
+.settings-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding-top: 20px;
+  display: flex;
+  align-items: flex-end;
+  transition: transform 0.3s ease-in-out;
+
+  &.open {
+    transform: translateX(91%);
+  }
+
+  .toggle-button {
+    background-color: #fff;
+    box-sizing: border-box;
+    height: 30px;
+    width: 30px;
+    color: variables.$purpleColor;
+    padding: 4px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    align-self: flex-start;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &.open .toggle-button {
+    transform: rotate(
+      45deg
+    ); // Fait tourner le bouton de 90 degrés lorsque le formulaire est ouvert
+  }
+
+  .settings-form {
+    width: 300px;
+    margin: 0 auto;
+
+    input {
+      padding: 5px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 184px;
+      background-color: variables.$purpleColor;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+}

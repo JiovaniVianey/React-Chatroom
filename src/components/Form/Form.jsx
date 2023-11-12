@@ -1,34 +1,30 @@
 // Form.js
-import React, { useState } from 'react';
 import { Send } from 'react-feather';
-import { useDispatch } from 'react-redux';
-import { addMessage } from '../../actions/chatActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { addMessage, changeInputMessage } from '../../actions/chatActions';
 import './Form.scss';
 
 const Form = () => {
-  const [message, setMessage] = useState('');
+  const value = useSelector((state) => state.inputMessage);
+
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (message.trim() !== '') {
-      dispatch(
-        addMessage({
-          author: 'Moi',
-          content: message,
-        })
-      );
-      setMessage('');
-    }
-  };
-
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form
+      className="form"
+      onSubmit={(event) => {
+        event.preventDefault();
+        dispatch(addMessage());
+      }}
+    >
       <input
         className="form-input"
         type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        value={value}
+        onChange={(event) => {
+          const action = changeInputMessage(event.target.value);
+          dispatch(action);
+        }}
         placeholder="Saisissez votre message..."
       />
       <button type="submit" className="form-submit">
