@@ -1,4 +1,9 @@
-import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE } from '../actions/chatActions';
+import {
+  ADD_MESSAGE,
+  CHANGE_INPUT_MESSAGE,
+  TOGGLE_SETTINGS,
+  CHANGE_SETTINGS_FIELD,
+} from '../actions/chatActions';
 import { getNextId } from '../utils';
 
 const initialState = {
@@ -20,10 +25,31 @@ const initialState = {
     },
   ],
   inputMessage: '',
+  isSettingsOpen: true,
+  email: '',
+  password: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case TOGGLE_SETTINGS:
+      return {
+        ...state,
+        isSettingsOpen: !state.isSettingsOpen,
+      };
+    case CHANGE_SETTINGS_FIELD:
+      // si c'est le champ email alors on place la nouvelle valeur dans email
+      if (action.identifier === 'email') {
+        return {
+          ...state,
+          email: action.newValue,
+        };
+      }
+      // sinon on place dans password
+      return {
+        ...state,
+        password: action.newValue,
+      };
     case CHANGE_INPUT_MESSAGE:
       return {
         ...state,

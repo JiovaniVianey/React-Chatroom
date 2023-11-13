@@ -1,44 +1,58 @@
 // Settings.js
 import { X } from 'react-feather';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleSettings, changeSettingsField } from '../../actions/chatActions';
+import Field from '../Field/Field';
 import './Settings.scss';
 
 const Settings = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const isOpen = useSelector((state) => state.isSettingsOpen);
 
-  const toggleSettings = () => {
-    setIsOpen(!isOpen);
-  };
+  const emailValue = useSelector((state) => state.email);
+  const passwordValue = useSelector((state) => state.password);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const dispatch = useDispatch();
 
   return (
-    <div className={`settings-container ${isOpen ? 'open' : ''}`}>
-      <button type="button" className="toggle-button" onClick={toggleSettings}>
+    <div className={`settings-container ${isOpen ? '' : 'open'}`}>
+      <button
+        type="button"
+        className="toggle-button"
+        onClick={() => {
+          dispatch(toggleSettings());
+        }}
+      >
         <X size={18} />
       </button>
       <div className="settings-form">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            id="email"
-            name="email"
+        <form>
+          <Field
+            identifier="email"
+            label="Adresse e-mail"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={emailValue}
+            changeField={(identifier, newValue) => {
+              console.log(
+                `changeField email: identifier=${identifier}, newValue=${newValue}`
+              );
+              const action = changeSettingsField(newValue, identifier);
+              dispatch(action);
+            }}
             required
           />
-          <input
+          <Field
+            identifier="password"
             type="password"
-            id="password"
-            name="password"
+            label="Mot de passe"
             placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={passwordValue}
+            changeField={(identifier, newValue) => {
+              console.log(
+                `changeField email: identifier=${identifier}, newValue=${newValue}`
+              );
+              const action = changeSettingsField(newValue, identifier);
+              dispatch(action);
+            }}
             required
           />
 
