@@ -3,31 +3,17 @@ import {
   CHANGE_INPUT_MESSAGE,
   TOGGLE_SETTINGS,
   CHANGE_SETTINGS_FIELD,
+  SAVE_SUCCESSFUL_LOGIN,
 } from '../actions/chatActions';
 import { getNextId } from '../utils';
 
 const initialState = {
-  messages: [
-    {
-      id: 1,
-      author: 'Super Chat',
-      content: 'Salut',
-    },
-    {
-      id: 2,
-      author: 'Super Chat',
-      content: 'Comment chat va ?',
-    },
-    {
-      id: 3,
-      author: 'Super Chat',
-      content: "T'as pas des super croquettes ?",
-    },
-  ],
+  messages: [],
   inputMessage: '',
   isSettingsOpen: true,
   email: '',
   password: '',
+  nickname: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -68,7 +54,7 @@ const reducer = (state = initialState, action = {}) => {
       // eslint-disable-next-line no-case-declarations
       const newMessage = {
         id: getNextId(state.messages),
-        author: 'Super Chat',
+        author: state.nickname,
         content: state.inputMessage,
       };
 
@@ -80,6 +66,12 @@ const reducer = (state = initialState, action = {}) => {
         messages: messagesUpdated,
         // on en profite pour vider le contenu de l'input
         inputMessage: '',
+      };
+    case SAVE_SUCCESSFUL_LOGIN:
+      return {
+        ...state,
+        nickname: action.nickname,
+        isSettingsOpen: false,
       };
     default:
       return state;

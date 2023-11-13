@@ -1,7 +1,11 @@
 // Settings.js
 import { X } from 'react-feather';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleSettings, changeSettingsField } from '../../actions/chatActions';
+import {
+  toggleSettings,
+  submitLogin,
+  changeSettingsField,
+} from '../../actions/chatActions';
 import Field from '../Field/Field';
 import './Settings.scss';
 
@@ -25,16 +29,20 @@ const Settings = () => {
         <X size={18} />
       </button>
       <div className="settings-form">
-        <form>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+
+            // ici on veut s'authentifier : faire réagir authMiddleware
+            dispatch(submitLogin());
+          }}
+        >
           <Field
             identifier="email"
             label="Adresse e-mail"
             placeholder="Email"
             value={emailValue}
             changeField={(identifier, newValue) => {
-              console.log(
-                `changeField email: identifier=${identifier}, newValue=${newValue}`
-              );
               const action = changeSettingsField(newValue, identifier);
               dispatch(action);
             }}
@@ -47,9 +55,6 @@ const Settings = () => {
             placeholder="Mot de passe"
             value={passwordValue}
             changeField={(identifier, newValue) => {
-              console.log(
-                `changeField email: identifier=${identifier}, newValue=${newValue}`
-              );
               const action = changeSettingsField(newValue, identifier);
               dispatch(action);
             }}
