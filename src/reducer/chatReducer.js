@@ -1,11 +1,11 @@
 import {
-  ADD_MESSAGE,
+  SEND_MESSAGE,
   CHANGE_INPUT_MESSAGE,
   TOGGLE_SETTINGS,
   CHANGE_SETTINGS_FIELD,
   SAVE_SUCCESSFUL_LOGIN,
+  HANDLE_MESSAGE_RECEIVED,
 } from '../actions/chatActions';
-import { getNextId } from '../utils';
 
 const initialState = {
   messages: [],
@@ -41,37 +41,29 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         inputMessage: action.value,
       };
-    case ADD_MESSAGE:
-      if (state.inputMessage.trim().length === 0) {
-        // /!\ tous les cases d'un reducer, et tous leurs if/else doivent retourner
-        // un state, sinon on aura un state "undefined" dans le store
-
-        // on n'a pas de traitement à appliquer, on retourne le state actuel
-        return state;
-      }
-
-      // créer un message
-      // eslint-disable-next-line no-case-declarations
-      const newMessage = {
-        id: getNextId(state.messages),
-        author: state.nickname,
-        content: state.inputMessage,
-      };
-
-      // eslint-disable-next-line no-case-declarations
-      const messagesUpdated = [...state.messages, newMessage];
-
+    case SEND_MESSAGE:
+      // on vide l'input après la prise en compte du message par le middleware
       return {
         ...state,
-        messages: messagesUpdated,
-        // on en profite pour vider le contenu de l'input
         inputMessage: '',
       };
     case SAVE_SUCCESSFUL_LOGIN:
       return {
         ...state,
         nickname: action.nickname,
+        // on en profite pour fermer les settings
         isSettingsOpen: false,
+        // sécurité : on efface les identifiants du state quand on n'en a plus
+        // besoin (par rapport aux failles XSS)
+        email: '',
+        password: '',
+      };
+    case HANDLE_MESSAGE_RECEIVED:
+      /* on ajoute dans le tableau des messages le message que le serveur nous
+        a envoyé sur le websocket */
+      return {
+        ...state,
+        messages: [...state.messages, action.message],
       };
     default:
       return state;

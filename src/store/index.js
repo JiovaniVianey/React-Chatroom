@@ -2,10 +2,12 @@ import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import reducer from '../reducer/chatReducer';
 import authMiddleware from '../middlewares/authMiddleware';
+import websocketMiddleware from '../middlewares/websocketMiddleware';
 
 const enhancer = composeWithDevTools(
   applyMiddleware(
-    authMiddleware
+    authMiddleware,
+    websocketMiddleware
     // ici d'autres middlewares
   )
 );

@@ -1,11 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = ({ message }) => {
+const Message = ({ author, content }) => {
   return (
     <div className="message">
-      <div className="message-author">{message.author}:</div>
-      <div className="message-content">{message.content}</div>
+      <div className="message-author">{author}:</div>
+      <div className="message-content">{content}</div>
     </div>
   );
 };
@@ -13,8 +12,6 @@ const Message = ({ message }) => {
 export default Message;
 
 Message.propTypes = {
-  message: PropTypes.shape({
-    author: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-  }).isRequired,
+  author: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };

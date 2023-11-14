@@ -1,15 +1,10 @@
-export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const CHANGE_INPUT_MESSAGE = 'CHANGE_INPUT_MESSAGE';
 export const TOGGLE_SETTINGS = 'TOGGLE_SETTINGS';
 export const CHANGE_SETTINGS_FIELD = 'CHANGE_SETTINGS_FIELD';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const SAVE_SUCCESSFUL_LOGIN = 'SAVE_SUCCESSFUL_LOGIN';
-
-export const addMessage = () => {
-  return {
-    type: ADD_MESSAGE,
-  };
-};
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const HANDLE_MESSAGE_RECEIVED = 'HANDLE_MESSAGE_RECEIVED';
 
 export const changeInputMessage = (newValue) => ({
   type: CHANGE_INPUT_MESSAGE,
@@ -35,4 +30,13 @@ export const submitLogin = () => ({
 export const saveSuccessfulLogin = (nickname) => ({
   type: SAVE_SUCCESSFUL_LOGIN,
   nickname, // nickname: nickname
+});
+
+export const sendMessage = () => ({
+  type: SEND_MESSAGE,
+});
+
+export const handleMessageReceived = (message) => ({
+  type: HANDLE_MESSAGE_RECEIVED,
+  message,
 });

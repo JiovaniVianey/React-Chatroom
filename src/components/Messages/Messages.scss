@@ -7,7 +7,7 @@
 
   overflow-y: auto;
   // pour que l'overflow s'applique il faut définir une hauteur
-  height: calc(100% - variables.$inputHeight);
+  height: 100vh;
 
   .message {
     margin-bottom: 2rem;
